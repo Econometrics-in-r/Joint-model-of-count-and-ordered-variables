@@ -134,7 +134,7 @@ LL <- function(params){
   # simulating random parameters from their means and standard deviation
   beta2 = t( t(draws1[,dim1+1:dim2])*SDRbeta2 + MRbeta2)
   # constructing the mean function
-  MEQ = offset2 + rowSums(dataR22*beta2)
+  MEQ = offset2 + rowSums(dataR22*beta2) + offset1#observed correlation term
   
   prob[,1] <- plogis(cutpoint1 - MEQ)
   prob[,2] <- plogis(cutpoint2 - MEQ) - prob[,1]
