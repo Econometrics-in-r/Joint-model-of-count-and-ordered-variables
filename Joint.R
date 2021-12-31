@@ -138,17 +138,15 @@ LL <- function(params){
   
   prob[,1] <- plogis(cutpoint1 - MEQ)
   prob[,2] <- plogis(cutpoint2 - MEQ) - prob[,1]
-  prob[,3] <- 1 - prob[,1] - prob[,2] 
   
   # cumulative probability functions for normal distribution (ordered probit)
   # prob[,1] <- pnorm(cutpoint1 - MEQ)
   # prob[,2] <- pnorm(cutpoint2 - MEQ) - prob[,1]
-  # prob[,3] <- 1 - prob[,1] - prob[,2]
-  
+
   # Lgarithim of probability for each category
   PR1 <- log(rowMeans(matrix(prob[,1], ncol = Ndraws)))
   PR2 <- log(rowMeans(matrix(prob[,2], ncol = Ndraws)))
-  PR3 <- log(rowMeans(matrix(prob[,3], ncol = Ndraws)))
+  PR3 <- 1-(PR1+PR2)
   
   # Logarithm of the probability for all fractions
   LNPR <- w[,1]*PR1+w[,2]*PR2+w[,3]*PR3 
